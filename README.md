@@ -32,6 +32,45 @@
 - [闭包语法解释](docs/语法解释.md)：`|| 30`、`|key| key.len()`、环境捕获、`Fn`/`FnMut`/`FnOnce` 和 `HashMap::entry`。
 - [`derive`](docs/derive.md)：自动派生 trait、常用内置派生、泛型约束、自定义派生及派生与手写实现的选择。
 
+### 工程组织
+
+- [Rust 模块如何组织](docs/模块如何组织.md)：package、crate 与 module 的关系，`lib.rs`、`main.rs`、`mod`、`use`、`pub use`、可见性、工作空间及分层最佳实践。
+
+### 常用第三方库
+
+#### 数据转换
+
+- [`serde`](docs/常用库/serde.md)：通用序列化与反序列化框架，派生宏、字段属性、借用数据和传输模型设计。
+- [`serde_json`](docs/常用库/serde_json.md)：Rust 类型、JSON 文本与动态 `Value` 的转换，以及大数据和流式处理建议。
+
+#### 错误处理
+
+- [`anyhow`](docs/常用库/anyhow.md)：应用层错误传播、上下文、错误链、Backtrace，以及和具体错误类型的使用边界。
+- [`thiserror`](docs/常用库/thiserror.md)：通过派生宏定义结构化错误，并与 `anyhow` 配合建立清晰的错误分层。
+
+#### 异步与可观察性
+
+- [`tokio`](docs/常用库/tokio.md)：异步运行时、任务、并发执行、阻塞操作、超时、取消和背压。
+- [`tracing`](docs/常用库/tracing.md)：结构化事件、Span、`#[instrument]` 和异步程序的诊断埋点。
+- [`tracing-subscriber`](docs/常用库/tracing-subscriber.md)：日志过滤、格式化、Layer、JSON 输出和应用入口初始化。
+
+#### 网络、Web 与数据库
+
+- [`reqwest`](docs/常用库/reqwest.md)：异步 HTTP 客户端、连接池、超时、状态码处理和安全重试。
+- [`axum`](docs/常用库/axum.md)：路由、Extractor、共享状态、统一错误响应和 Tower 中间件。
+- [`sqlx`](docs/常用库/sqlx.md)：异步 SQL、连接池、参数绑定、事务、Migration 和编译期查询检查。
+
+#### 命令行与数据处理
+
+- [`clap`](docs/常用库/clap.md)：使用结构体和枚举构建强类型命令行接口、子命令及可测试的参数解析。
+- [`itertools`](docs/常用库/itertools.md)：标准迭代器的扩展适配器，以及惰性执行、分组、去重和组合操作。
+- [`rayon`](docs/常用库/rayon.md)：面向 CPU 密集型任务的数据并行、并行迭代器和线程池使用边界。
+
+#### 测试与性能
+
+- [`proptest`](docs/常用库/proptest.md)：属性测试、输入策略、失败用例缩减和业务不变量设计。
+- [`criterion`](docs/常用库/criterion.md)：统计驱动的微基准测试、输入规模设计和可信性能测量。
+
 ## 推荐阅读顺序
 
 如果刚开始学习 Rust，可以按照下面的顺序阅读：
@@ -42,7 +81,12 @@
 4. [`HashMap`](docs/HashMap.md) 与 [`HashSet`](docs/HashSet.md)，掌握常用集合及所有权问题；
 5. [常用函数](docs/常用函数.md)，进一步理解复制、克隆和组合子；
 6. [闭包语法解释](docs/语法解释.md)，理解迭代器和 `entry` API 中常见的闭包；
-7. [`derive`](docs/derive.md)，学习如何为自己的类型生成或设计 trait 实现。
+7. [`derive`](docs/derive.md)，学习如何为自己的类型生成或设计 trait 实现；
+8. [Rust 模块如何组织](docs/模块如何组织.md)，把单文件示例组织成可维护的 crate；
+9. [`serde`](docs/常用库/serde.md)、[`serde_json`](docs/常用库/serde_json.md)，掌握实际项目中的数据转换；
+10. [`anyhow`](docs/常用库/anyhow.md)、[`thiserror`](docs/常用库/thiserror.md)，建立应用层和库层的错误边界；
+11. [`tokio`](docs/常用库/tokio.md)、[`tracing`](docs/常用库/tracing.md)，学习异步程序及其可观察性；
+12. 根据项目方向选择后续内容：CLI 阅读 [`clap`](docs/常用库/clap.md)，Web 后端阅读 [`axum`](docs/常用库/axum.md)、[`reqwest`](docs/常用库/reqwest.md) 和 [`sqlx`](docs/常用库/sqlx.md)。
 
 已经有 Rust 基础时，可以直接从具体问题对应的文档开始阅读。
 
@@ -63,6 +107,8 @@ rustdoc --edition=2021 --test docs/Result.md
 ```
 
 代码块标记为 `compile_fail` 时，测试通过表示该示例确实无法编译，用于演示 Rust 阻止的错误写法。
+
+第三方库文档中的部分代码使用 `ignore`，因为它们需要对应依赖、数据库或网络环境。建议在临时 Cargo 项目中添加文档列出的依赖后运行这些示例。
 
 ## 内容原则
 
@@ -86,6 +132,12 @@ rustdoc --edition=2021 --test docs/Result.md
 - 字符串不能通过整数索引：阅读字符串中的 UTF-8 与安全切片章节；
 - 不知道如何统计、去重或快速查询：阅读 `HashMap` 和 `HashSet`；
 - 不确定是否应该派生 `Copy`、`Eq`、`Hash` 或 `Ord`：阅读 `derive`。
+- 不理解 `lib.rs`、`mod`、`use` 或模块文件放在哪里：阅读 Rust 模块如何组织；
+- 需要读写 JSON：阅读 `serde` 和 `serde_json`；
+- 不知道应用错误和公共库错误怎样设计：阅读 `anyhow` 和 `thiserror`；
+- 需要编写异步程序或排查异步调用链：阅读 `tokio`、`tracing` 和 `tracing-subscriber`；
+- 准备开发 Web API：阅读 `axum`、`reqwest` 和 `sqlx`；
+- 希望验证算法性质或性能优化：阅读 `proptest` 和 `criterion`。
 
 ## 参与完善
 
