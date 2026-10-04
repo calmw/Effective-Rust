@@ -58,6 +58,8 @@
 
 - [`reqwest`](docs/常用库/reqwest.md)：异步 HTTP 客户端、连接池、超时、状态码处理和安全重试。
 - [`axum`](docs/常用库/axum.md)：路由、Extractor、共享状态、统一错误响应和 Tower 中间件。
+- [Axum 完整指南](docs/web/axum/README.md)：Axum 的特点、请求提取、状态、错误、中间件、测试、项目结构和生产最佳实践。
+- [Loco 完整指南](docs/web/loco/README.md)：Rails 风格的 Axum 应用框架，涵盖 SeaORM、生成器、认证、后台任务、配置、测试和部署。
 - [`sqlx`](docs/常用库/sqlx.md)：异步 SQL、连接池、参数绑定、事务、Migration 和编译期查询检查。
 
 #### 命令行与数据处理
@@ -70,6 +72,11 @@
 
 - [`proptest`](docs/常用库/proptest.md)：属性测试、输入策略、失败用例缩减和业务不变量设计。
 - [`criterion`](docs/常用库/criterion.md)：统计驱动的微基准测试、输入规模设计和可信性能测量。
+
+### 桌面应用
+
+- [Tauri 完整指南](docs/桌面应用/tauri/README.md)：Tauri 2 的架构、组件、IPC、权限、插件、状态管理、打包更新、安全和生产最佳实践。
+- [egui 完整指南](docs/桌面应用/egui/README.md)：即时模式 GUI、eframe、核心组件、布局、状态、资源、自定义控件、后台任务、测试和性能最佳实践。
 
 ## 推荐阅读顺序
 

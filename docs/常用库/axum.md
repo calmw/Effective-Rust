@@ -2,6 +2,8 @@
 
 [`axum`](https://docs.rs/axum/latest/axum/) 是 Tokio 生态中的 Web 框架，围绕路由、Extractor、响应转换和 Tower 中间件构建。
 
+本文是快速入门。更完整的项目结构、中间件、测试、安全和生产实践请阅读：[Axum 完整指南](../web/axum/README.md)。
+
 ## 1. 添加依赖
 
 ```bash
